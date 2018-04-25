@@ -3,6 +3,8 @@
     package="com.example.user.task1">
 
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
 
     <application
         android:allowBackup="true"

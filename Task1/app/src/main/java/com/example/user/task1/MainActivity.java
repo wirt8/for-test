@@ -35,17 +35,22 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         mProgress = (ProgressBar) findViewById(R.id.progress);
         mProgress.setVisibility(View.GONE);
+
+
 
         mRunningApps = getAvailableLaunchersCurrentlyRunning();
         mAdapter = new ActivitiesAdapter();
         setListAdapter(mAdapter);
 
+        new SweepSelectorTask(this).execute();
+
         final ListView view = getListView();
         view.setOnItemClickListener(this);
 
-        new SweepSelectorTask(this).execute();
+        //new SweepSelectorTask(this).execute();
     }
 
     @Override
@@ -88,7 +93,7 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
             if (mFilter && canKill(holder.packageName)) {
                 tv.setTextColor(Color.GREEN);
             } else {
-                tv.setTextColor(Color.WHITE);
+                tv.setTextColor(Color.BLACK);
             }
             tv.setText(holder.label);
 
@@ -119,7 +124,8 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
         }
 
         boolean canKill(final String packageName) {
-            return mFilter && mKillablePackages.contains(packageName);
+            return mFilter;
+            // return mFilter && mKillablePackages.contains(packageName);
         }
 
         void kill(final int position) {
